@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Smart Bottle - 重新定義你的飲水體驗</title>
+  <style>
+    :root {
+      --bg-color: #fbfbfd;
+      --text-main: #1d1d1f;
+      --text-secondary: #86868b;
+      --accent: #0071e3;
+      --card-bg: #f5f5f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.47059;
+      font-weight: 400;
+      letter-spacing: -.022em;
+    }
+
+    /* 頂部導航列 */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .nav-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .nav-buy {
+      background: var(--accent);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 400;
+      text-decoration: none;
+    }
+
+    /* 主視覺區塊 (Hero) */
+    .hero {
+      padding: 100px 20px 60px 20px;
+      text-align: center;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .hero h2 {
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 600;
+      letter-spacing: .007em;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 21px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 30px auto;
+    }
+
+    /* 產品展示與換色互動區 */
+    .product-showcase {
+      max-width: 800px;
+      margin: 0 auto 60px auto;
+      background: var(--card-bg);
+      border-radius: 30px;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    }
+
+    .bottle-preview-box {
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      transition: all 0.3s ease;
+    }
+
+    /* 模擬不同顏色的水壺外觀 */
+    .bottle-mockup {
+      width: 110px;
+      height: 280px;
+      border-radius: 55px 55px 30px 30px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      transition: background 0.4s ease;
+    }
+
+    .bottle-cap {
+      position: absolute;
+      top: 0;
+      left: 10px;
+      right: 10px;
+      height: 50px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 45px 45px 10px 10px;
+      border-bottom: 2px solid rgba(0,0,0,0.1);
+    }
+
+    .color-picker {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .color-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s;
+    }
+
+    .color-dot.active {
+      border-color: var(--accent);
+      transform: scale(1.1);
+    }
+
+    .selected-color-name {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* 功能規格卡片格線 */
+    .specs-container {
+      max-width: 980px;
+      margin: 0 auto 80px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .spec-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 36px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .spec-card h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .spec-card p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .spec-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    /* 購買區塊 */
+    .purchase-section {
+      background: #fff;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .price {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .buy-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 980px;
+      padding: 14px 32px;
+      font-size: 17px;
+      font-weight: 400;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .buy-btn:hover {
+      background: #0077ed;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 導航列 -->
+  <nav>
+    <div class="nav-title">Super Smart Bottle</div>
+    <a href="#purchase" class="nav-buy">預購</a>
+  </nav>
+
+  <!-- 主視覺 -->
+  <section class="hero">
+    <h2>全新亮相</h2>
+    <h1>Super Smart Bottle</h1>
+    <p>智慧溫控技術，完美融合精準 8°C 冰水調節與天然風味注入，隨時隨地享受純粹好水。</p>
+  </section>
+
+  <!-- 顏色切換展示區 -->
+  <div class="product-showcase">
+    <div class="bottle-preview-box">
+      <!-- 模擬水壺外觀 -->
+      <div class="bottle-mockup" id="bottleBody" style="background: #e8e3dc;">
+        <div class="bottle-cap"></div>
+      </div>
+    </div>
+    <div class="color-picker">
+      <div class="color-dot active" style="background: #e8e3dc;" onclick="changeColor('#e8e3dc', '奶茶白 (Milk Cream)')" title="奶茶白"></div>
+      <div class="color-dot" style="background: #4a4a4c;" onclick="changeColor('#4a4a4c', '太空灰 (Space Gray)')" title="太空灰"></div>
+      <div class="color-dot" style="background: #d8c2b6;" onclick="changeColor('#d8c2b6', '燕麥粉 (Oat Pink)')" title="燕麥粉"></div>
+      <div class="color-dot" style="background: #c5d1d9;" onclick="changeColor('#c5d1d9', '極地銀 (Silver)')" title="極地銀"></div>
+    </div>
+    <div class="selected-color-name" id="colorName">外觀顏色：奶茶白 (Milk Cream)</div>
+  </div>
+
+  <!-- 功能亮點介紹 (唯讀規格) -->
+  <div class="specs-container">
+    <div class="spec-card">
+      <div>
+        <div class="spec-icon">❄️</div>
+        <h3>8°C 極致冰控</h3>
+        <p>支援精準降溫技術，最低可達 8°C 冰水極限，炎炎夏日隨時享有沁涼口感。</p>
+      </div>
+    </div>
+
+    <div class="spec-card">
+      <div>
+        <div class="spec-icon">🌿</div>
+        <h3>天然風味注入</h3>
+        <p>內建專利調味艙，支援蘋果、蜂蜜、檸檬多重風味自由切換，豐富你的每一口水分攝取。</p>
+      </div>
+    </div>
+
+    <div class="spec-card">
+      <div>
+        <div class="spec-icon">🔋</div>
+        <h3>全天候續航</h3>
+        <p>低功耗藍牙晶片與高效電池，單次充電即可支援多日智慧溫控與監測。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 預購區塊 -->
+  <section class="purchase-section" id="purchase">
+    <div class="price">NT$ 2,680</div>
+    <button class="buy-btn" onclick="orderPopup()">立即預購</button>
+  </section>
+
+  <script>
+    function changeColor(hex, name) {
+      document.getElementById('bottleBody').style.background = hex;
+      document.getElementById('colorName').innerText = `外觀顏色：${name}`;
+      
+      // 更新選取點樣式
+      document.querySelectorAll('.color-dot').forEach(dot => dot.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    function orderPopup() {
+      const colorText = document.getElementById('colorName').innerText;
+      alert(`感謝您的預購！\n您所選擇的規格：${colorText}\n（此為展示頁面，無需實際付款）`);
+    }
+  </script>
+
+</body>
+</html>
